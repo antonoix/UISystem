@@ -1,0 +1,35 @@
+.title {
+    font-size: 100%;
+    -unity-font-style: bold;
+    background-color: rgb(220, 225, 238);
+    -unity-text-align: middle-center;
+    white-space: normal;
+    text-overflow: ellipsis;
+    color: rgb(24, 24, 24);
+    justify-content: flex-end;
+    align-self: auto;
+    align-items: center;
+    flex-direction: column;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.presenterListElement {
+    margin-top: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    background-color: rgb(53, 53, 53);
+    justify-content: flex-start;
+    padding-top: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+    font-size: 100%;
+}

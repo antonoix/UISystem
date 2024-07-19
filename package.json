@@ -1,0 +1,17 @@
+{
+  "name": "com.antonoix.uisystem",
+  "version": "1.0.0",
+  "displayName": "Antonoix UI System",
+  "description": "UI System which allows you easily create Presenters and Views",
+  "unity": "2019.1",
+  "enableLockFile": "false",
+  "documentationUrl": "https://github.com/antonoix/UISystem",
+  "changelogUrl": "https://github.com/antonoix/UISystem",
+  "keywords": [
+    "UI"
+  ],
+  "author": {
+    "name": "Antonoix",
+    "email": "anton21-7@mail.ru"
+  }
+}

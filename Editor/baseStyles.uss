@@ -1,0 +1,17 @@
+.defaultButton {
+    align-items: center;
+    align-self: center;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-left-color: rgba(30, 30, 30, 0.64);
+    border-right-color: rgba(30, 30, 30, 0.64);
+    border-top-color: rgba(30, 30, 30, 0.64);
+    border-bottom-color: rgba(30, 30, 30, 0.64);
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    background-color: rgb(255, 0, 0);
+}

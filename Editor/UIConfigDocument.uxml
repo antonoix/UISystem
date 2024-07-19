@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Assets/Plugins/Antonoix/UISystem/Editor/title.uss?fileID=7433441132597879392&amp;guid=84e91edc9b9c7f44fb6afd1a5b2d286d&amp;type=3#title" />
+    <ui:Label tabindex="-1" text="Antonoix UI System" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Title" class="title" style="height: 11%; -unity-text-align: middle-center; font-size: 20%;" />
+    <ui:GroupBox style="background-color: rgb(80, 80, 80); border-top-left-radius: 4px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-bottom-left-radius: 4px;">
+        <uie:ObjectField label="UI root prefab" type="UnityEngine.Canvas, UnityEngine.UIModule" name="UIRootPrefab" style="margin-bottom: 10px; font-size: 36%;" />
+        <ui:Toggle label="Force initialize presenters" name="ForceInitPresenters" style="margin-bottom: 12px; font-size: 36%;" />
+        <ui:GroupBox name="PresentersList" style="background-color: rgb(118, 118, 118); border-top-left-radius: 4px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-bottom-left-radius: 4px;">
+            <ui:Label tabindex="-1" text="Presenters" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 16%;" />
+        </ui:GroupBox>
+    </ui:GroupBox>
+</ui:UXML>
