@@ -1,6 +1,6 @@
     Antonoix UI System
     0.1.0
-    http://www.inter-illusion.com
+    https://github.com/antonoix/UISystem
     anton21-7@mail.ru
 ---
 
