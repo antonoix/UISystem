@@ -44,16 +44,7 @@ namespace Plugins.Antonoix.UISystem
                 }
             }
             
-            Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
-
-            foreach (var assembly in assemblies)
-            {
-                var types = assembly.GetTypes()
-                    .Where(t => t.BaseType != null && t.BaseType.IsGenericType && 
-                                t.BaseType.GetGenericTypeDefinition() == typeof(BaseUIPresenter<>));
-            
-                _allPresentersTypes.AddRange(types);
-            }
+            _allPresentersTypes.AddRange(UiClassesReflection.FindAllPresenters());
         }
 
         public async UniTask<T> GetPresenter<T>() where T : IBasePresenter
@@ -76,7 +67,8 @@ namespace Plugins.Antonoix.UISystem
             var viewLoad = Addressables.LoadAssetAsync<GameObject>(presenter.UIPrefabAddressablesName);
             await UniTask.WaitWhile(() => viewLoad.Status == AsyncOperationStatus.None);
             var view = _instantiator.InstantiatePrefab(viewLoad.Result, _root);
-            presenter.Initialize(view);
+            var model = _instantiator.Instantiate(presenter.Model) as BaseUIModel;
+            presenter.Initialize(view, model);
                 
             _presenters.Add(presenter);
             return presenter;

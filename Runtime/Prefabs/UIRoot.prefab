@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6249367331679473088}
   - component: {fileID: 95819327573285545}
   - component: {fileID: 524218774999131137}
-  - component: {fileID: 4790280910445362353}
+  - component: {fileID: 5182019480492099183}
   m_Layer: 5
   m_Name: UIRoot
   m_TagString: Untagged
@@ -30,7 +30,7 @@ RectTransform:
   m_GameObject: {fileID: 388301750894374867}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -118,7 +118,7 @@ MonoBehaviour:
   m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
---- !u!114 &4790280910445362353
+--- !u!114 &5182019480492099183
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

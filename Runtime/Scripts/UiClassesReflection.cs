@@ -16,9 +16,8 @@ namespace Plugins.Antonoix.UISystem
             foreach (var assembly in assemblies)
             {
                 var types = assembly.GetTypes()
-                    .Where(t => t.BaseType != null && t.BaseType.IsGenericType && 
-                                t.BaseType.GetGenericTypeDefinition() == typeof(BaseUIPresenter<>));
-            
+                    .Where(mytype => mytype.GetInterfaces().Contains(typeof(IBasePresenter)) && !mytype.IsAbstract);
+                
                 presenters.AddRange(types);
             }
 

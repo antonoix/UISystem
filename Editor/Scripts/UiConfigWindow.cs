@@ -62,7 +62,7 @@ namespace Plugins.Antonoix.UISystem.Editor.Scripts
                 label.text = presenter.Name;
             
                 element.Add(label);
-                presentersList.Add(element);
+                presentersList?.Add(element);
             }
         }
 
