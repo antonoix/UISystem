@@ -23,6 +23,7 @@ namespace Plugins.Antonoix.UISystem
         //private MenuUIPresenter _menuUiPresenter;
         // private ShopUIPresenter _shopUiPresenter;
 
+        private bool _isInitialized;
         private Transform _root;
 
         public UIService(UiConfig config, IInstantiator instantiator)
@@ -33,6 +34,21 @@ namespace Plugins.Antonoix.UISystem
 
         public void Initialize()
         {
+            InitializePresenters().Forget();
+        }
+
+        public async UniTask<T> GetPresenter<T>() where T : IBasePresenter
+        {
+            await UniTask.WaitUntil(() => _isInitialized);
+            
+            var presenter = _presenters.FirstOrDefault(x => x is T);
+            presenter ??= await CreatePresenter(typeof(T));
+            
+            return (T)presenter;
+        }
+
+        private async UniTaskVoid InitializePresenters()
+        {
             _root = Object.Instantiate(_config.UIRootPrefab).transform;
             GameObject.DontDestroyOnLoad(_root);
 
@@ -40,19 +56,13 @@ namespace Plugins.Antonoix.UISystem
             {
                 foreach (var presenterType in UiClassesReflection.FindAllPresenters())
                 {
-                    CreatePresenter(presenterType).Forget();
+                    await CreatePresenter(presenterType);
                 }
             }
             
             _allPresentersTypes.AddRange(UiClassesReflection.FindAllPresenters());
-        }
 
-        public async UniTask<T> GetPresenter<T>() where T : IBasePresenter
-        {
-            var presenter = _presenters.FirstOrDefault(x => x is T);
-            presenter ??= await CreatePresenter(typeof(T));
-            
-            return (T)presenter;
+            _isInitialized = true;
         }
 
         private async UniTask<IBasePresenter> CreatePresenter(Type presenterType)
@@ -67,10 +77,11 @@ namespace Plugins.Antonoix.UISystem
             var viewLoad = Addressables.LoadAssetAsync<GameObject>(presenter.UIPrefabAddressablesName);
             await UniTask.WaitWhile(() => viewLoad.Status == AsyncOperationStatus.None);
             var view = _instantiator.InstantiatePrefab(viewLoad.Result, _root);
-            var model = _instantiator.Instantiate(presenter.Model) as BaseUIModel;
+            var model = _instantiator.Instantiate(presenter.ModelType) as BaseUIModel;
+            
             presenter.Initialize(view, model);
-                
             _presenters.Add(presenter);
+            
             return presenter;
         }
     }
