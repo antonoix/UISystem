@@ -14,19 +14,22 @@ namespace Plugins.Antonoix.UISystem
 {
     public class UIService : IUiService, IInitializable
     {
-        private readonly UiConfig             _config;
-        private readonly DiContainer          _container;
-        private readonly List<IBasePresenter> _presenters         = new();
-        private readonly List<Type>           _allPresentersTypes = new();
+        private readonly UiConfig _config;
+        private readonly IInstantiator _instantiator;
+        private readonly List<IBasePresenter> _presenters = new();
+        private readonly List<Type> _allPresentersTypes = new();
+        
+        //private FirstEnterUIPresenter _firstEnterUiPresenter;
+        //private MenuUIPresenter _menuUiPresenter;
+        // private ShopUIPresenter _shopUiPresenter;
 
-        private bool             _isInitialized;
-        private Transform        _root;
-        private MonoEventsHelper _monoEventsHelper;
+        private bool _isInitialized;
+        private Transform _root;
 
-        public UIService(UiConfig config, DiContainer container)
+        public UIService(UiConfig config, IInstantiator instantiator)
         {
             _config = config;
-            _container = container;
+            _instantiator = instantiator;
         }
 
         public void Initialize()
@@ -46,8 +49,7 @@ namespace Plugins.Antonoix.UISystem
 
         private async UniTaskVoid InitializePresenters()
         {
-            _root             = Object.Instantiate(_config.UIRootPrefab).transform;
-            _monoEventsHelper = _root.gameObject.AddComponent<MonoEventsHelper>();
+            _root = Object.Instantiate(_config.UIRootPrefab).transform;
             GameObject.DontDestroyOnLoad(_root);
 
             if (_config.ForcePresentersInit)
@@ -65,20 +67,17 @@ namespace Plugins.Antonoix.UISystem
 
         private async UniTask<IBasePresenter> CreatePresenter(Type presenterType)
         {
-            var presenter = _container.Instantiate(presenterType) as IBasePresenter;
-            
+            var presenter = _instantiator.Instantiate(presenterType) as IBasePresenter;
             if (presenter == null)
             {
                 Debug.LogError($"Can not create {presenterType}");
                 return default;
             }
-
-            _monoEventsHelper.RegisterUpdatable(presenter as IUpdatable);
                 
             var viewLoad = Addressables.LoadAssetAsync<GameObject>(presenter.UIPrefabAddressablesName);
             await UniTask.WaitWhile(() => viewLoad.Status == AsyncOperationStatus.None);
-            var view = _container.InstantiatePrefab(viewLoad.Result, _root);
-            var model = _container.Instantiate(presenter.ModelType) as BaseUIModel;
+            var view = _instantiator.InstantiatePrefab(viewLoad.Result, _root);
+            var model = _instantiator.Instantiate(presenter.ModelType) as BaseUIModel;
             
             presenter.Initialize(view, model);
             _presenters.Add(presenter);
