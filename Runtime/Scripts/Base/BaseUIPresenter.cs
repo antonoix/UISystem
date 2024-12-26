@@ -1,9 +1,10 @@
 ﻿using System;
 using UnityEngine;
+using Zenject;
 
 namespace Plugins.Antonoix.UISystem.Base
 {
-    public abstract class BaseUIPresenter<TView, TModel> : IBasePresenter
+    public abstract class BaseUIPresenter<TView, TModel> : IBasePresenter, IUpdatable
         where TView : BaseUIView
         where TModel : BaseUIModel
     {
@@ -37,5 +38,12 @@ namespace Plugins.Antonoix.UISystem.Base
             View.Dispose();
             Model.Dispose();
         }
+
+        void IUpdatable.Update()
+        {
+            Update();
+        }
+        
+        protected virtual void Update() {}
     }
 }
