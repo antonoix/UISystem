@@ -11,6 +11,7 @@ namespace Plugins.Antonoix.UISystem.Base
         public TView View;
         public TModel Model;
 
+        public BaseUIView BaseUIView => View;
         public Type ViewType => typeof(TView);
         public Type ModelType => typeof(TModel);
         public string GetName => ToString();

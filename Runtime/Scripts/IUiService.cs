@@ -5,6 +5,6 @@ namespace Plugins.Antonoix.UISystem
 {
     public interface IUiService
     {
-        UniTask<T> GetPresenter<T>() where T : IBasePresenter;
+        UniTask<T> GetPresenter<T>(bool setAsLast = false) where T : IBasePresenter;
     }
 }

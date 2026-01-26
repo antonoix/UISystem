@@ -5,6 +5,7 @@ namespace Plugins.Antonoix.UISystem.Base
 {
     public interface IBasePresenter
     {
+        BaseUIView BaseUIView { get; } 
         Type ViewType { get; }  
         Type ModelType { get; }    
         string UIPrefabAddressablesName { get; } 

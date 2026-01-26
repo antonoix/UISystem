@@ -1,5 +1,4 @@
-﻿using Plugins.Antonoix.UISystem.Base;
-using UnityEngine;
+﻿using UnityEngine;
 using Zenject;
 
 namespace Plugins.Antonoix.UISystem

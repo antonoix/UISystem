@@ -34,12 +34,17 @@ namespace Plugins.Antonoix.UISystem
             InitializePresenters().Forget();
         }
 
-        public async UniTask<T> GetPresenter<T>() where T : IBasePresenter
+        public async UniTask<T> GetPresenter<T>(bool setAsLastSibling = false) where T : IBasePresenter
         {
             await UniTask.WaitUntil(() => _isInitialized);
             
             var presenter = _presenters.FirstOrDefault(x => x is T);
             presenter ??= await CreatePresenter(typeof(T));
+
+            if (setAsLastSibling)
+            {
+                presenter.BaseUIView.transform.SetAsLastSibling();
+            }
             
             return (T)presenter;
         }
