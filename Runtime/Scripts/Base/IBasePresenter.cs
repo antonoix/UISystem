@@ -10,8 +10,8 @@ namespace Plugins.Antonoix.UISystem.Base
         Type ModelType { get; }    
         string UIPrefabAddressablesName { get; } 
         void Initialize(GameObject view, BaseUIModel model);
-        void Show();
-        void Hide();
+        void Show(bool withAnimation = true);
+        void Hide(bool withAnimation = true);
         void Dispose();
     }
 }

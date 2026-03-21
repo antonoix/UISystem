@@ -13,32 +13,64 @@ namespace Plugins.Antonoix.UISystem.Base
 
         public virtual void Dispose() { }
 
-        public virtual async UniTask Show()
+        public async UniTask Show(bool withAnimation)
         {
+            OnBeforeShow();
             gameObject.SetActive(true);
 
-            List<UniTask> tasks = new List<UniTask>();
-            foreach (var animator in _showAnimators)
+            if (withAnimation)
             {
-                if (animator)
-                    tasks.Add(animator.FadeIn());
+                List<UniTask> tasks = new List<UniTask>();
+                foreach (var animator in _showAnimators)
+                {
+                    if (animator)
+                        tasks.Add(animator.FadeIn());
+                }
+
+                await UniTask.WhenAll(tasks);
             }
 
-            await UniTask.WhenAll(tasks);
+            OnAfterShow();
         }
 
-        public virtual async UniTask Hide()
+        public async UniTask Hide(bool withAnimation)
         {
-            List<UniTask> tasks = new List<UniTask>();
-            foreach (var animator in _hideAnimators)
+            OnBeforeHide();
+
+            if (withAnimation)
             {
-                if (animator)
-                    tasks.Add(animator.FadeOut());
+                List<UniTask> tasks = new List<UniTask>();
+                foreach (var animator in _hideAnimators)
+                {
+                    if (animator)
+                        tasks.Add(animator.FadeOut());
+                }
+
+                await UniTask.WhenAll(tasks);
             }
-
-            await UniTask.WhenAll(tasks);
-
+            
             gameObject.SetActive(false);
+            OnAfterHide();
+        }
+
+        protected virtual UniTask OnBeforeShow()
+        {
+            return UniTask.CompletedTask;
+        }
+
+        protected virtual UniTask OnAfterShow()
+        {
+            return UniTask.CompletedTask;
+        }
+
+        protected virtual UniTask OnBeforeHide()
+        {
+            return UniTask.CompletedTask;
+        }
+
+        protected virtual UniTask OnAfterHide()
+        {
+            return UniTask.CompletedTask;
         }
     }
 }

@@ -18,11 +18,11 @@ namespace Plugins.Antonoix.UISystem.Base
         public abstract string UIPrefabAddressablesName { get; }
 
 
-        public virtual void Show() 
-            => View.Show();
+        public virtual void Show(bool withAnimation = true) 
+            => View.Show(withAnimation);
 
-        public virtual void Hide() 
-            => View.Hide();
+        public virtual void Hide(bool withAnimation = true) 
+            => View.Hide(withAnimation);
 
         public virtual void Initialize(GameObject view, BaseUIModel model)
         {
