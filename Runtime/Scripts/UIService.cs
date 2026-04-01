@@ -18,6 +18,7 @@ namespace Plugins.Antonoix.UISystem
         private readonly DiContainer          _container;
         private readonly List<IBasePresenter> _presenters         = new();
         private readonly List<Type>           _allPresentersTypes = new();
+        private readonly Dictionary<OpenContext, List<IBasePresenter>> _contextScreens = new();
 
         private bool             _isInitialized;
         private Transform        _root;
@@ -47,6 +48,37 @@ namespace Plugins.Antonoix.UISystem
             }
             
             return (T)presenter;
+        }
+
+        public void Show(IBasePresenter presenter, bool withAnimation = true, OpenContext openContext = null)
+        {
+            presenter.Show(withAnimation);
+
+            if (openContext == null)
+                return;
+
+            if (!_contextScreens.TryGetValue(openContext, out List<IBasePresenter> list))
+            {
+                list = new List<IBasePresenter>();
+                _contextScreens[openContext] = list;
+            }
+
+            if (!list.Contains(presenter))
+                list.Add(presenter);
+        }
+
+        public void HideContext(OpenContext context, bool withAnimation = false)
+        {
+            if (!_contextScreens.TryGetValue(context, out List<IBasePresenter> list))
+                return;
+
+            for (int i = list.Count - 1; i >= 0; i--)
+            {
+                if (list[i].BaseUIView.gameObject.activeSelf)
+                    list[i].Hide(withAnimation);
+            }
+
+            list.Clear();
         }
 
         private async UniTaskVoid InitializePresenters()
