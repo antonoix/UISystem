@@ -67,6 +67,12 @@ namespace Plugins.Antonoix.UISystem
                 list.Add(presenter);
         }
 
+        public async UniTask Show<T>(bool withAnimation = true, OpenContext openContext = null) where T : IBasePresenter
+        {
+            T presenter = await GetPresenter<T>();
+            Show(presenter, withAnimation, openContext);
+        }
+
         public void HideContext(OpenContext context, bool withAnimation = false)
         {
             if (!_contextScreens.TryGetValue(context, out List<IBasePresenter> list))
