@@ -67,9 +67,9 @@ namespace Plugins.Antonoix.UISystem
                 list.Add(presenter);
         }
 
-        public async UniTask Show<T>(bool withAnimation = true, OpenContext openContext = null) where T : IBasePresenter
+        public async UniTask Show<T>(bool setAsLastSibling = false, bool withAnimation = true, OpenContext openContext = null) where T : IBasePresenter
         {
-            T presenter = await GetPresenter<T>();
+            T presenter = await GetPresenter<T>(setAsLastSibling);
             Show(presenter, withAnimation, openContext);
         }
 
